@@ -9,7 +9,7 @@
 | - elevenlabs      |                    v                             v                              v
 | - mpv             |        +-----------------------+        +------------------+        +------------------------+
 | - portaudio       |        |                       |        |                  |        |                        |
-+-------------------+        |  AssemblyAI performs  |-------->  OpenAI generates|-------->  ElevenLabs streams   |
++-------------------+        |  AssemblyAI performs  |-------->  OpenAI generates|-------->  ElevenLabs streams    |
                              |  real-time speech-to- |        |  response based  |        |  response as live      |
                              |  text transcription   |        |  on transcription|        |  audio to the user     |
                              |                       |        |                  |        |                        |
@@ -33,6 +33,7 @@ import json
 import sys
 from dotenv import load_dotenv
 import os
+from predict_spam import predict_spam
 
 load_dotenv()
 
@@ -155,6 +156,7 @@ class AI_Assistant:
                 self.stop_transcription() 
                 with open("user_data.json", "w") as f:
                     json.dump(self.user_data, f, indent=2)
+                predict_spam()
                 sys.exit(0) # end conversation
 
         except Exception as e:
@@ -178,7 +180,7 @@ class AI_Assistant:
 
         stream(audio_stream)
 
-greeting = "Thank you for calling Mr Aleksander. My name is Sandy, please state your name and reason for call."
+greeting = "Thank you for calling Mr Ale`ksander. My name is Sandy, please state your name and reason for call."
 ai_assistant = AI_Assistant()
 ai_assistant.generate_audio(greeting)
 ai_assistant.start_transcription()
